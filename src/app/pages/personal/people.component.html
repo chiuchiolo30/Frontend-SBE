@@ -1,0 +1,89 @@
+<div class="row animated fadeIn">
+    <div class="col-md-7">
+        <div class="card card-body">
+            <h3 class="box-title m-b-0">Personal:</h3><br>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <!-- Aproximación por template -->
+                    <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarPersonal( f )">
+                        <div class="form-group">                            
+                            <div class="demo-switch-title">Estado</div>
+                            <div class="switch">
+                                <label>Baja
+                                    <input [(ngModel)]="people.estado" name="estado" type="checkbox" checked="">
+                                    <span class="lever switch-col-light-green"></span>
+                                    Alta
+                                </label>                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label >Nombre</label>
+                            <input [(ngModel)]="people.nombre" name="nombre" type="text" class="form-control"  placeholder="Ingrese su nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label >Email</label>
+                            <input [(ngModel)]="people.email" name="email" type="email" class="form-control"  placeholder="Ingrese su dirección de email" required>
+                        </div>
+                        <div class="form-group">
+                            <label >DNI</label>
+                            <input [(ngModel)]="people.dni" name="dni" type="text" class="form-control"  placeholder="Ingrese su número de documento" required>
+                        </div> 
+                        <div class="form-group">
+                            <label >Telefono</label>
+                            <input [(ngModel)]="people.telefono" name="telefono" type="text" class="form-control"  placeholder="Ingres su número de telefono" required>
+                        </div>                      
+                        <div class="form-group">
+                            <label >Dirección</label>
+                            <input [(ngModel)]="people.direccion" name="direccion" type="text" class="form-control"  placeholder="Ingrese su domicilio">
+                        </div>
+                        <div class="form-group">
+                            <label >Cargo</label>
+                            <select [(ngModel)]="people.cargo" name="cargo" class="form-control custom-select" required>
+                                <option value="">Seleccione el cargo</option>
+                                <option *ngFor="let cargo of cargos" [value]="cargo">{{cargo}}</option>                                
+                            </select>                    
+                        </div> 
+
+                        <div class="form-group">
+                            <label >Empresa</label>
+                            <select [(ngModel)]="people.idempresa" name="idempresa" class="form-control custom-select" required>
+                                <option value="null" >Seleccione una empresa</option>
+                                <option *ngFor="let empresa of empresas" [value]="empresa.id">{{empresa.nombre}}</option>                                
+                            </select>                    
+                        </div>
+                        
+                        <a routerLink="/personal" class="btn btn-inverse waves-effect waves-light">
+                            Volver
+                        </a>
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10 m-l-10">
+                            <i class="fa fa-save"></i>
+                            Guardar
+                        </button>
+                        <a (click)="borrar()" routerLink="/personal" class="btn btn-danger waves-effect waves-red">
+                            Eliminar
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-5">
+        <div class="card">
+            <div class="card-body" align="center">
+                <h4 class="card-title"> Fotografía del personal</h4>
+                <h6 class="card-subtitle"> {{ people.nombre }} </h6>
+
+                <img *ngIf="!imagenTemp" [src]="people.img | imagen:'personal'" class="w150" alt="">
+                <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150" alt="">
+
+                <input (change)="seleccionImagen( $event.target.files[0] )" type="file" name="" id="">
+                <br><br>
+                <button (click)="cambiarImagen()" [disabled]="!imagenSubir" type="botton" class="btn btn-block btn-success waves-effect waves-light m-r-10">
+                    <i class="fa fa-upload"></i>
+                    Actualizar
+                </button>  
+            </div>
+        </div>
+    </div>
+</div>

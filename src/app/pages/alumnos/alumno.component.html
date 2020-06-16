@@ -1,0 +1,75 @@
+<div class="row animated fadeIn">
+    <div class="col-md-7">
+        <div class="card card-body">
+            <h3 class="box-title m-b-0">Alumno:</h3><br>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <!-- Aproximación por template -->
+                    <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarAlumno( f )">
+                        <div class="form-group">
+                            <label >Nombre</label>
+                            <input [(ngModel)]="alumno.nombre" name="nombre" type="text" class="form-control"  placeholder="Ingrese su nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label >Email</label>
+                            <input [(ngModel)]="alumno.email" name="email" type="email" class="form-control"  placeholder="Ingrese su dirección de email" required>
+                        </div>
+                        <div class="form-group">
+                            <label >DNI</label>
+                            <input [(ngModel)]="alumno.dni" name="dni" type="text" class="form-control"  placeholder="Ingrese su número de documento" required>
+                        </div> 
+                        <div class="form-group">
+                            <label >Telefono</label>
+                            <input [(ngModel)]="alumno.telefono" name="telefono" type="text" class="form-control"  placeholder="Ingres su número de telefono" required>
+                        </div>                      
+                        <div class="form-group">
+                            <label >Dirección</label>
+                            <input [(ngModel)]="alumno.direccion" name="direccion" type="text" class="form-control"  placeholder="Ingrese su domicilio">
+                        </div>     
+                        <div class="form-group">
+                            <label >Carrera</label>
+                            <input [(ngModel)]="alumno.carrera" name="carrera" type="text" class="form-control"  placeholder="Ingrese su carrera">
+                        </div>     
+                        <div class="form-group">
+                            <label >N° de Libreta</label>
+                            <input [(ngModel)]="alumno.libreta" name="libreta" type="text" class="form-control"  placeholder="Ingrese su CX">
+                        </div> 
+                        <div class="form-group">
+                            <label >Acuerdo</label>
+                            <select [(ngModel)]="alumno.id_acuerdo" name="idacuerdo" class="form-control custom-select" required>
+                                <option value="null" >Seleccione un acuerdo</option>
+                                <option *ngFor="let acuerdo of acuerdos" [value]="acuerdo.id">{{acuerdo.nombre}}</option>                                
+                            </select>                    
+                        </div>    
+                        <a routerLink="/alumnos" class="btn btn-inverse waves-effect waves-light">
+                            Volver
+                        </a>
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10 m-l-10">
+                            <i class="fa fa-save"></i>
+                            Guardar
+                        </button>                      
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-5">
+        <div class="card">
+            <div class="card-body" align="center">
+                <h4 class="card-title"> Fotografía del alumno</h4>
+                <h6 class="card-subtitle"> {{ alumno.nombre }} </h6>
+
+                <img *ngIf="!imagenTemp" [src]="alumno.img | imagen:'alumno'" class="w150" alt="">
+                <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150" alt="">
+
+                <input (change)="seleccionImagen( $event.target.files[0] )" type="file" name="" id="">
+                <br><br>
+                <button (click)="cambiarImagen()" [disabled]="!imagenSubir" type="botton" class="btn btn-block btn-success waves-effect waves-light m-r-10">
+                    <i class="fa fa-upload"></i>
+                    Actualizar
+                </button>  
+            </div>
+        </div>
+    </div>
+</div>
